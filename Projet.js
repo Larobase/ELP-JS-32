@@ -1,5 +1,5 @@
-const inquirer = require("inquirer");
-const { exec } = require("child_process");
+import inquirer from 'inquirer'
+import {exec} from 'child_process'
 
 let processes = {}; //pour conserver les processes en cours
 
@@ -9,13 +9,12 @@ async function lireTerminal(){ //fonction asynchrone pour les promesses
         {
         type: "input",
         name: "input",
-        message: __dirname + ">>>"
+        message:process.cwd()+">>>"
         }
     ])
     .then((answers) => {
         execTerminal(answers.input); //si on a reçu une réponse, on lance l'exécution
     });
-    
 }
 
 function execution(str){ //pour exécuter les commandes dans le shell linux
@@ -44,7 +43,7 @@ function execTerminal(input){ //construit le string à exécuter dans le shell l
         input = input.slice (0,-1)+" &"
     }
     let commande=input.split(" ")
-    commandes_simples = ["ls","pwd","rm","cd","mkdir","rmdir","dir"]
+    let commandes_simples = ["ls","pwd","rm","cd","mkdir","rmdir","dir"]
     if (commandes_simples.includes(commande[0])){
         execution(input)
 
